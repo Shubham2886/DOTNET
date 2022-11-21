@@ -2,12 +2,14 @@
 using BasicWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddSingleton<ICounter, CommonCounter>();
+builder.Services.AddSingleton<ICounter, CommonCounter>();
 builder.Services.AddSingleton<ICounter, NamedCounter>();
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseMiddleware<Pausing>(1);
+//http://localhost:5000/Welcome
 app.MapGet("/Welcome", DoGreeting);
+
 app.MapPost("/Count", DoCounting);
 app.Run();
 
